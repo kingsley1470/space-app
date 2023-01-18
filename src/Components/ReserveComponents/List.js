@@ -1,4 +1,4 @@
- import SpaceData from "../../spaceData.json";
+import SpaceData from "../../spaceData.json";
 import { Link } from "react-router-dom";
 import { useSpaceContext } from '../../context/SpaceContext';
 import { useState, useEffect } from "react";
