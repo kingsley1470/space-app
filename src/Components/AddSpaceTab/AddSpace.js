@@ -1,12 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { useAuthContext } from '../../context/AuthContext';
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ImageUploader from '../ProfilePage/ImageUploader';
 import axios from 'axios';
 
 
 function AddSpace() {
     const {userId,setUser,user } = useAuthContext();
+    const navigate = useNavigate();
 
     //const[phone,setPhone] =useState('');
     const [imageUrl, setImageUrl] = useState(require('../../icons/upload.png'));
@@ -28,7 +29,7 @@ function AddSpace() {
     const getUserDetails =async (userIdfromLS) =>{
          try {
             
-           const { data } = await axios.post(`${backEnd_API}/user/get-user`,{
+           const { data } = await axios.post(`https://real-red-gosling-hose.cyclic.app/user/get-user`,{
           //const { data } = await axios.post('http://localhost:3100/user/get-user',{
                 userId:userIdfromLS
             } );
@@ -54,6 +55,7 @@ const handleChange = (e) => {
     }
     const handleUpload = async () => {
 
+
 		// Get your Cloudinary configuration
 		const cloudinaryUrl =process.env.REACT_APP_CloudinaryUrl;                           
 		const cloudinaryPreset = process.env.REACT_APP_CloudinaryPresent;          
@@ -66,8 +68,16 @@ const handleChange = (e) => {
 		// Make the request to Cloudinary
 		try {
 			const response = await axios.post(cloudinaryUrl, formData);
-			setImageUrl(response.data.secure_url);
+            
+            if(response.data.secure_url.startsWith("blob")){
+                let result = response.data.secure_url.slice(5);
+                setImageUrl(result);
+            }
+            else
+			setImageUrl(response.data.secure_url)
+            
 			console.log("uploaded.",response.status);
+            alert("Image uploaded !")
 		} catch (error) {
 			console.error(error);
 		}
@@ -78,6 +88,7 @@ const handleChange = (e) => {
            console.log(input);
           //  const { data } = await axios.post('http://localhost:3100/spaces', {
             const { data } = await axios.post(`https://real-red-gosling-hose.cyclic.app/spaces`, {
+
                 title: input.title,
                 area: input.area,
                 costperDay: input.costperDay,
@@ -95,7 +106,7 @@ const handleChange = (e) => {
             });
 
             console.log("space added successfully. ", data);
-            return <Navigate to='/profile' />
+            navigate('/profile');
         } catch (err) {
             console.log(err);
         }
@@ -108,7 +119,7 @@ const handleChange = (e) => {
                 <h1>Enter Space Details</h1>
 
 
-                <form onSubmit={handleSubmitAddSpace}>
+                <form onSubmit={(e) => handleSubmitAddSpace(e)}>
                     <div className='GIinput'>
                         <label>Title</label>
                         <input name='title' value={input.title} type='text' placeholder='title' className='inputGI' onChange={handleChange}></input>
@@ -138,7 +149,7 @@ const handleChange = (e) => {
       
                             </div>
                  
-                    <button type='submit' className='signUpButton'><p>Save All</p></button>
+                    <button type='submit' className='signUpButton'>Save All</button>
                 </form>
             </div>
 
