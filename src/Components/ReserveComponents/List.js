@@ -18,9 +18,15 @@ const List = () => {
       setSortBy(value)
     }
    }
+  // <div>
+    //   {SpaceData && SpaceData
+    //   .filter(space => city ? city === space.city : space)
+    //   .map(space => {
+    // return (
+
 
    useEffect(()=>{
-    console.log("all Space!", allSpaces)
+    console.log("all Space! in list", allSpaces)
     if(sortBy === 'min'){
       const sorted = allSpaces.sort((a, b) => (Number(a.costperday.slice(0, -1)) > Number(b.costperday.slice(0, -1))) ? 1 : ((Number(b.costperday.slice(0, -1)) > Number(a.costperday.slice(0, -1))) ? -1 : 0))
       setLocalSpaces(sorted);
@@ -31,12 +37,9 @@ const List = () => {
       console.log('Original')
     )
    }, [sortBy])
-  return (
-    // <div>
-    //   {SpaceData && SpaceData
-    //   .filter(space => city ? city === space.city : space)
-    //   .map(space => {
-    // return (
+
+ 
+ return(
       <div className="checkBoxFlexBox">
         <ScrollToTopOnMount />
       <Checkbox />
@@ -76,5 +79,6 @@ const List = () => {
                )})}
             </div>
       </div>
-  )}
+  )
+}
 export default List;
