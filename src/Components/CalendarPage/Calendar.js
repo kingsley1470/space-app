@@ -6,7 +6,7 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookedDates: [new Date("2022-01-01"), new Date("2022-01-05")],
+      bookedDates: [new Date("2023-01-01"), new Date("2023-01-05")],
     };
   }
 
