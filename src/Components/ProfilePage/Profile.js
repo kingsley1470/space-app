@@ -24,18 +24,28 @@ function Profile() {
     const[userid,setUserid]=useState();
     const backEnd_API = process.env.REACT_APP_API_BACKEND;
 
+    const [input,setInput]=useState({
+        firstname:'',
+        lastname:'',
+        email:'',
+        phonenumber:'',
+        address:'',
+        city:'',
+        country:'',
+        zip:''
+})
 
-  const [input,setInput]=useState({
-    firstname:user.firstname,
-    lastname:user.lastname,
-    email:user.email,
-    phonenumber:user.phonenumber,
-    address:user.address,
-    city:user.city,
-    country:user.country,
-    zip:user.zip,
+//   const [input,setInput]=useState({
+//     firstname:input.firstname,
+//     lastname:input.lastname,
+//     email:input.email,
+//     phonenumber:input.phonenumber,
+//     address:input.address,
+//     city:input.city,
+//     country:input.country,
+//     zip:input.zip,
 
-  })
+//   })
    useEffect(()=>{
         setProfileImgLink(imageUrl)
      console.log("inside ueeffect")
@@ -59,7 +69,6 @@ function Profile() {
        let LSUser = localStorage.getItem('userId');
       LSUser && getUserDetails(LSUser);
       setUserid(LSUser);
-        console.log("link ", `${input.profilepicurl}`);
     },[])
 
 
@@ -105,6 +114,7 @@ function Profile() {
                   userId:userid,
                   profilepicurl:profileImgLink
               } );
+              
               alert("Updated succesfully !")
             console.log("Success",data);
             }catch(err){
@@ -119,12 +129,12 @@ function Profile() {
                 <div className='profile-pic-div'>
                             {<ImageUploader  image={image} setImage={setImage} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
                             <img src={image}  onClick={handleUpload} className='upload-icon-profile'  />
-                           <h5>{user.firstname}{" "}{user.lastname}</h5>
+                           <h5>{input.firstname}{" "}{input.lastname}</h5>
                 </div>
                 <div className='profile-list'>
                     <ul>
                         <li><Link to='/profile'> Profile <span> {'>'}</span></Link></li><hr />
-                        <li><Link to='/prev-bookings'>Previous bookings <span> {'>'}</span></Link></li><hr />
+                        {/* <li><Link to='/prev-bookings'>Previous bookings <span> {'>'}</span></Link></li><hr /> */}
                         {/* <li>Messages <span> {'>'}</span></li><hr /> */}
                         <li><Link to='/change-password'>Change password <span> {'>'}</span></Link></li><hr />
                     </ul>
@@ -175,7 +185,7 @@ function Profile() {
                     <div className='flex-col'>
                         <label htmlFor='fname'>City </label>
                         <input type='text' placeholder='City'  value={input.city} name='city' onChange={handleChange} />
-                     <input type='text' placeholder='City' name='city' value={user.city} onChange={handleChange}/>
+                   
 
                     </div>
                     {/* <div className='flex-col number-input'>
@@ -195,7 +205,9 @@ function Profile() {
 
                     </div>
                 </div>
-                <button>Save All</button>
+                <div>
+                <button className='profile-page-btn'>Save All</button>
+                </div>
                 </form>
 
             </div>

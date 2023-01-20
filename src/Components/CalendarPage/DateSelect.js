@@ -20,27 +20,19 @@ import { useSpaceContext } from "../../context/SpaceContext";
 function DateSelect() {
 
     const [date, setDate] = useState(new Date());
-    const {setFromDate,setToDate,setFromTime,setToTime,fromDate,toDate,fromTime,toTime,setDateDiff} =useSpaceContext();
-    const[fromD,setFromD]=useState(new Date());
-    const[toD,setToD]=useState(new Date());
+    const {selectedSpace,setFromDate,setToDate,setFromTime,setToTime,fromDate,toDate,fromTime,toTime,setDateDiff,setTotal} =useSpaceContext();
+  
 
     const [btnClasname, setBtnClassname] = useState('continue-btn');
     const navigate = useNavigate();
     
     const {id} = useParams();
 
+     useEffect(()=>{
+      console.log("selected  ",selectedSpace)
 
-{/*  const [date, setDate] = useState(new Date());
-  const {
-    setFromDate,
-    setToDate,
-    setFromTime,
-    setToTime,
-    fromDate,
-    toDate,
-    fromTime,
-    toTime,
-  } = useSpaceContext();
+     },[])
+{/*  
   const [btnClasname, setBtnClassname] = useState("");
   const navigate = useNavigate();
 
@@ -56,7 +48,9 @@ function DateSelect() {
     const diffTime = Math.abs(e[0] - e[1]);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setDateDiff(diffDays);
- 
+    let totalAmount=diffDays*(selectedSpace.costperday);
+    console.log(totalAmount);
+    setTotal(totalAmount);
   };
 
   const CalendarComp = (
@@ -75,7 +69,7 @@ function DateSelect() {
     <div>
       <div className="timer-div">
         <div className="time-div">
-          <div className="show-time">Start at </div>
+          <div className="show-time"><p>Start at :</p></div>
           <div className="timer">
             <TimeInput
               fullTimeDropdown="true"
@@ -87,7 +81,7 @@ function DateSelect() {
           </div>
         </div>
         <div className="time-div">
-          <div className="show-time">End at </div>
+          <div className="cal-page-show-time"><p>End at :</p></div>
           <div className="timer">
             <TimeInput
               fullTimeDropdown="true"
