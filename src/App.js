@@ -30,8 +30,7 @@ function App() {
 
   const getAllSpaces = async () => {
     try {
-      // const { data } = await axios.get(`${REACT_APP_API_BACKEND}/spaces`);
-      // 'http://localhost:3100/spaces');      
+       
       const { data } = await axios.get(`https://real-red-gosling-hose.cyclic.app/spaces`);
       setAllSpaces(data);
       //console.log("data   ", data)
