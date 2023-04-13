@@ -77,7 +77,7 @@
 @media (max-width: 600px) {
   .menu-icon {
     display: flex;
-    justify-content: end;
+    /* justify-content: end; */
     cursor: pointer;
   }
 
